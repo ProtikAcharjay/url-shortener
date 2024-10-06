@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('shorten-url', [UrlController::class, 'processUrl'])->name('shorten-url');
+    Route::get('/{id}', [UrlController::class, 'redirectUrl'])->name('redirect-url');
+    Route::get('test', [UrlController::class, 'test'])->name('test');
 });
 
 require __DIR__.'/auth.php';

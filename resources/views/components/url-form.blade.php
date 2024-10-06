@@ -30,8 +30,11 @@
         #ur_submit_button:hover{   
             background-color: #2c702f;
         }
-        .card{
+        #result{
             display: none;
+        }
+        #shortened_url{
+            color: blue;
         }
 
     </style>
@@ -77,7 +80,8 @@
                     },
                     success: function(response) {
                         if (response) {
-                            $('#shortened_url').html('<a href="' + response.data.shortened_url + '" target="_blank">' + response.data.shortened_url + '</a>');
+                            $('#result').css('display', 'block');
+                            $('#shortened_url').html('<a href="' + response.short_url + '" target="_blank">' + response.short_url + '</a>');
                             $('#result').fadeIn();
                         } else {
                             alert('something went wrong');
