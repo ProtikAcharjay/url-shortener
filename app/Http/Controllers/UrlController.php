@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\URL;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UrlController extends Controller
 {
@@ -18,6 +19,10 @@ class UrlController extends Controller
         $url_model->url = $request->url;
         $url_model->short_code = $random_number;
         $url_model->save();
+        Log::info("URL saved successfully", [
+            'url' => $request->url,
+            'short_code' => $random_number,
+        ]);
 
         return response()->json(['short_url' => $short_url], 200);
         
@@ -27,10 +32,10 @@ class UrlController extends Controller
         return redirect($url);
     }
     public function test(){
-        $url = 'https://mail.google.com/mail/u/0/#inbox/QgrcJHsNqLLbHslRFHFtHVCqDrcSJzSrJLB';
-        $url_model = new URL();
-        $url_model->url = $url;
-        $url_model->short_code = rand(1,9999999);
-        $url_model->save();
+        // $url = 'https://mail.google.com/mail/u/0/#inbox/QgrcJHsNqLLbHslRFHFtHVCqDrcSJzSrJLB';
+        // $url_model = new URL();
+        // $url_model->url = $url;
+        // $url_model->short_code = rand(1,9999999);
+        // $url_model->save();
     }
 }
