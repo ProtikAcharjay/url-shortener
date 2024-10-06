@@ -13,7 +13,7 @@ class UrlController extends Controller
             ['url' =>'required|url']
         );
         $random_number = rand(1,9999999);
-        $short_url = env('APP_URL') . $random_number;
+        $short_url = env('APP_URL'). 'url/' . $random_number;
 
         $url_model = new URL();
         $url_model->url = $request->url;
