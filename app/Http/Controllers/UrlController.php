@@ -32,12 +32,13 @@ class UrlController extends Controller
         
     }
     public function redirectUrl($id){
-        $url = URL::where('short_code', $id)->pluck('url')->first();
+        $url = URL::where('short_code', $id)->first();
 
         abort_if(!$url, 404, 'URL not found');
-        
+
         abort_if(Carbon::now()->greaterThan($url->expire_at), 410, 'This URL has expired');
-        return redirect($url);
+        
+        return redirect($url->url);
     }
     public function test(){
         // $url = 'https://mail.google.com/mail/u/0/#inbox/QgrcJHsNqLLbHslRFHFtHVCqDrcSJzSrJLB';
