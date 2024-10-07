@@ -36,7 +36,7 @@ class UrlController extends Controller
 
         abort_if(!$url, 404, 'URL not found');
         
-        abort_if(Carbon::now()->greaterThan($url->expires_at), 410, 'This URL has expired');
+        abort_if(Carbon::now()->greaterThan($url->expire_at), 410, 'This URL has expired');
         return redirect($url);
     }
     public function test(){
