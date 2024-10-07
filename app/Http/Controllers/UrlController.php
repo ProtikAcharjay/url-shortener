@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -14,21 +15,28 @@ class UrlController extends Controller
         );
         $random_number = rand(1,9999999);
         $short_url = env('APP_URL'). 'url/' . $random_number;
-
+        $expire_at = Carbon::now()->addMinutes(30);
+        
         $url_model = new URL();
         $url_model->url = $request->url;
         $url_model->short_code = $random_number;
+        $url_model->expire_at = $expire_at;
         $url_model->save();
         Log::info("URL saved successfully", [
             'url' => $request->url,
             'short_code' => $random_number,
+            'expire_at' => $expire_at,
         ]);
 
-        return response()->json(['short_url' => $short_url], 200);
+        return response()->json(['short_url' => $short_url, 'expire_at' => $expire_at], 200);
         
     }
     public function redirectUrl($id){
         $url = URL::where('short_code', $id)->pluck('url')->first();
+
+        abort_if(!$url, 404, 'URL not found');
+        
+        abort_if(Carbon::now()->greaterThan($url->expires_at), 410, 'This URL has expired');
         return redirect($url);
     }
     public function test(){
