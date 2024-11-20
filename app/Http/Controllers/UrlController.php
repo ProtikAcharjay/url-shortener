@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\TestJob;
 use Carbon\Carbon;
 use App\Models\URL;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ class UrlController extends Controller
         return redirect($url->url);
     }
     public function test(){
+        TestJob::dispatch()->onQueue('test');
+        dd("dispatched test job in test queue");
         // $url = 'https://mail.google.com/mail/u/0/#inbox/QgrcJHsNqLLbHslRFHFtHVCqDrcSJzSrJLB';
         // $url_model = new URL();
         // $url_model->url = $url;
