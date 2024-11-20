@@ -42,7 +42,7 @@ class UrlController extends Controller
         return redirect($url->url);
     }
     public function test(){
-        TestJob::dispatch()->onQueue('test');
+        TestJob::dispatch();
         dd("dispatched test job in test queue");
         // $url = 'https://mail.google.com/mail/u/0/#inbox/QgrcJHsNqLLbHslRFHFtHVCqDrcSJzSrJLB';
         // $url_model = new URL();
