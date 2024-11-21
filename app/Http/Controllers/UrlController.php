@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\TestJob;
 use Carbon\Carbon;
 use App\Models\URL;
+use App\Jobs\TestJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class UrlController extends Controller
 {
@@ -42,6 +43,7 @@ class UrlController extends Controller
         return redirect($url->url);
     }
     public function test(){
+        dd(phpinfo());
         $test = testHelper("protik");
         dd($test);
         TestJob::dispatch();
